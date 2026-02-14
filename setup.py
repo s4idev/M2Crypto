@@ -15,6 +15,9 @@ import sys
 requires_list = []
 if sys.version_info <= (2, 6):
     requires_list.append("unittest2")
+# Add distro for Linux distribution detection (replaces deprecated platform.linux_distribution)
+if sys.platform.startswith('linux'):
+    requires_list.append("distro")
 
 import os  # noqa
 import platform
