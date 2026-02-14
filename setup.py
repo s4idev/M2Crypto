@@ -19,6 +19,10 @@ if sys.version_info <= (2, 6):
 import os  # noqa
 import platform
 try:
+    import distro
+except ImportError:
+    distro = None
+try:
     from setuptools import setup
     from setuptools.command import build_ext
 except ImportError:
@@ -73,7 +77,10 @@ class _M2CryptoBuildExt(build_ext.build_ext):
         self.swig_opts.append(os.path.join(self.build_lib, 'M2Crypto'))
 
         # Fedora does hat tricks.
-        if platform.linux_distribution()[0] in ['Fedora', 'CentOS']:
+        linux_dist = None
+        if distro:
+            linux_dist = distro.id()
+        if linux_dist in ['fedora', 'centos', 'rhel']:
             if platform.architecture()[0] == '64bit':
                 self.swig_opts.append('-D__x86_64__')
             elif platform.architecture()[0] == '32bit':
