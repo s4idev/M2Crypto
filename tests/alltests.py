@@ -31,12 +31,14 @@ def suite():
         'tests.test_dsa',
         'tests.test_engine',
         'tests.test_evp',
+        'tests.test_ftpslib',
         'tests.test_obj',
         'tests.test_pgp',
         'tests.test_rand',
         'tests.test_rc4',
         'tests.test_rsa',
         'tests.test_smime',
+        'tests.test_ssl_basics',
         'tests.test_ssl_offline',
         'tests.test_threading',
         'tests.test_x509']
@@ -45,6 +47,7 @@ def suite():
     elif os.name == 'nt':
         modules_to_test.append('tests.test_ssl_win')
     if m2.OPENSSL_VERSION_NUMBER >= 0x90800F and m2.OPENSSL_NO_EC == 0:
+        modules_to_test.append('tests.test_ec')
         modules_to_test.append('tests.test_ecdh')
         modules_to_test.append('tests.test_ecdsa')
         modules_to_test.append('tests.test_ec_curves')
